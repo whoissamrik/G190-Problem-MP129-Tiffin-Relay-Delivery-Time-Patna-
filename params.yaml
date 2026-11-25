@@ -1,0 +1,76 @@
+# Configuration for MP129 — Tiffin Relay Delivery Time (Patna)
+project:
+  group_id: "G190"
+  problem_id: "MP129"
+  seed: 42
+
+paths:
+  raw_train: "data/raw/train.csv"
+  raw_later: "data/raw/later.csv"
+  holdout_features: "data/raw/holdout_features.csv"
+  cleaned_train: "data/processed/train_clean.csv"
+  model_path: "models/model.joblib"
+  findings_path: "reports/findings.yaml"
+  predictions_path: "predictions/holdout_predictions.csv"
+
+features:
+  id_col: "record_id"
+  date_col: "date"
+  target_col: "delivery_min"
+  group_col: "route_zone"
+  numeric:
+    - "distance_km"
+    - "tiffins"
+    - "handovers"
+    - "wait_at_station_min"
+    - "rider_age"
+    - "temp_c"
+  categorical:
+    - "transport"
+    - "route_zone"
+
+cleaning:
+  unit_mixup_col: "wait_at_station_min"
+  unit_mixup_group: "Old City"
+  unit_mixup_factor: 60.0
+  target_typo_gap_ratio: 2.5
+  target_typo_factor: 10.0
+  stuck_sensor_min_run: 10
+
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment_name: "mp129-tiffin-delivery"
+  registered_model_name: "mp129-tiffin-model"
+
+training:
+  val_size: 0.2
+  candidates:
+    - name: "ridge_alpha_1"
+      type: "ridge"
+      params:
+        alpha: 1.0
+    - name: "random_forest"
+      type: "random_forest"
+      params:
+        n_estimators: 200
+        max_depth: 12
+        random_state: 42
+    - name: "gradient_boosting"
+      type: "gradient_boosting"
+      params:
+        n_estimators: 200
+        learning_rate: 0.05
+        max_depth: 4
+        random_state: 42
+    - name: "hist_gradient_boosting"
+      type: "hist_gradient_boosting"
+      params:
+        max_iter: 200
+        learning_rate: 0.05
+        max_depth: 5
+        random_state: 42
+
+monitoring:
+  psi_bins: 10
+  retrain_split: 0.7
+  promotion_threshold: 0.05
