@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mp129-api
+  labels:
+    app: mp129-api
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: mp129-api
+  template:
+    metadata:
+      labels:
+        app: mp129-api
+    spec:
+      containers:
+        - name: mp129-api
+          image: mp129-api:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 15

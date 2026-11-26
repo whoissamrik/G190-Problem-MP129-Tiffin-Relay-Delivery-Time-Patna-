@@ -1,0 +1,53 @@
+group_id: G190
+problem_id: MP129
+data_issues:
+  leaking_column:
+    present: false
+    column: null
+  unit_mixup:
+    present: true
+    column: wait_at_station_min
+    group_value: Old City
+    factor: 60
+  sentinel_value:
+    present: false
+    column: null
+    value: null
+    count: null
+  duplicate_rows:
+    present: true
+    count: 48
+  stuck_sensor:
+    present: true
+    column: tiffins
+    start_date: '2026-03-19'
+    end_date: '2026-04-05'
+  target_typos:
+    present: true
+    count: 15
+  spelling_variants:
+    present: false
+    column: null
+    true_levels: null
+tracking:
+  experiment_name: mp129-tiffin-delivery
+  best_run_id: fa11e859a3bf4978bb5f233c3e950d32
+  registered_model_name: mp129-tiffin-model
+  champion_version: 2
+monitoring:
+  psi:
+    distance_km: 0.0537
+    tiffins: 0.1285
+    handovers: 0.017
+    wait_at_station_min: 0.0139
+    rider_age: 0.0403
+    temp_c: 6.689
+  most_drifted_feature: temp_c
+  mae_by_group:
+    Central: 4.3438
+    Suburb: 4.8322
+    Old City: 18.3304
+  worst_served_group: Old City
+  mae_v1_on_check: 9.5187
+  mae_v2_on_check: 4.4762
+  decision: promote
