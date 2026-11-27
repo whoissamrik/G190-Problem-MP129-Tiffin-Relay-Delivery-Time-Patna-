@@ -11,7 +11,7 @@ SCSE3040 MLOps Mini Project for **Patna Dabba Relay Union**.
 | Enrolment No. | Name | Suggested Role |
 |---|---|---|
 | `S24CSEU0373` | Rohit Kumar
-| `S24CSEU0377` | Ronak | Model
+| `S24CSEU0377` | Ronak.
 | `S24CSEU0457` | Samrik Dutta 
 | `S24CSEU0385` | Saanann Roy 
 
